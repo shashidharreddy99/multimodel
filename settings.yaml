@@ -1,0 +1,77 @@
+# ============================================================
+# settings.yaml - Model Configuration
+# Module: Deep Neural Networks and Learning Systems (55-710365)
+# Project: Narrative Frame Prediction via Multimodal Learning
+# ============================================================
+
+data:
+  source: "daniel3303/StoryReasoning"
+  img_resize: 256
+  caption_max_tokens: 100
+  context_frames: 4
+  split_train: "train"
+  split_test: "test"
+
+img_encoder:
+  arch: "resnet34"
+  use_pretrained: true
+  finetune: true
+  embed_size: 256
+
+caption_encoder:
+  type: "gru"
+  vocab_limit: 8000
+  word_embed: 128
+  gru_hidden: 256
+  num_gru_layers: 2
+  dropout_rate: 0.4
+  out_size: 256
+
+multimodal_fusion:
+  method: "additive_attention"
+  output_size: 256
+  num_heads: 4
+
+temporal:
+  rnn_type: "gru"
+  hidden_size: 256
+  depth: 2
+  dropout_rate: 0.4
+
+self_attention:
+  heads: 4
+  max_len: 20
+
+frame_decoder:
+  kind: "upsample_conv"
+  out_channels: 3
+  out_resolution: 256
+
+caption_decoder:
+  rnn_type: "gru"
+  hidden_size: 256
+  depth: 2
+  max_output_len: 50
+
+optimisation:
+  num_epochs: 25
+  mini_batch: 12
+  lr: 3.0e-4
+  l2_penalty: 1.0e-4
+  lr_schedule: "step"
+  lr_step_size: 8
+  lr_gamma: 0.5
+  clip_norm: 2.0
+  frame_loss_w: 0.8
+  caption_loss_w: 1.2
+  random_seed: 123
+
+xai:
+  technique: "integrated_gradients"
+  viz_samples: 8
+
+io:
+  data_cache: "./cache"
+  ckpt_dir: "./saved_models"
+  output_dir: "./outputs"
+  log_dir: "./logs"
