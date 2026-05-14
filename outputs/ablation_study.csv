@@ -1,0 +1,5 @@
+Model Variant,BLEU-4,Frame L1 Error
+Baseline (GRU + Concatenation),N/A,N/A
++ Attention-based Fusion,N/A,N/A
++ Stacked GRU Encoder,N/A,N/A
++ Recency-aware Attention (Full Model),0.08,1.288698
